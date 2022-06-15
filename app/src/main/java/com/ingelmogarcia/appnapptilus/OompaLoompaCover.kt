@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.Glide
 
 class OompaLoompaCover @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -25,8 +26,11 @@ class OompaLoompaCover @JvmOverloads constructor(
         title = view.findViewById(R.id.title)
     }
 
-    fun setOompaLoompa(/*image:String,*/ title:String){
-        //this.image = image
+    fun setOompaLoompa(urlImage:String, title:String){
+        Glide
+            .with(context)
+            .load(urlImage)
+            .into(image)
         this.title.text = title
     }
 }

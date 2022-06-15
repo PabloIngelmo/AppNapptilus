@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.oompaLoompa.setOompaLoompa("AAA")
+        binding.oompaLoompa.setOompaLoompa("https://s3.eu-central-1.amazonaws.com/napptilus/level-test/2.jpg","AAA")
 
         oompaLoompaViewModel.oompaLoompaModel.observe(this, Observer {
 
