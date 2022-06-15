@@ -10,6 +10,12 @@ class AspectRatioImageView @JvmOverloads constructor(
 
     var ratio:Float = 1f
 
+    init {
+        val a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioImageView)
+        ratio = a.getFloat(R.styleable.AspectRatioImageView_ratio, 1f)
+        a.recycle()
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 

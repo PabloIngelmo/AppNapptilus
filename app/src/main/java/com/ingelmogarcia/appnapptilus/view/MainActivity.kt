@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.cover.ratio = 1.5f
+        binding.oompaLoompa.setOompaLoompa("AAA")
 
         oompaLoompaViewModel.oompaLoompaModel.observe(this, Observer {
 
