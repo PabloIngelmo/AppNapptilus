@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ingelmogarcia.appnapptilus.model.OompaLoompaModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
 
-class OompaLoompaAdapter(private val listOompaLoompas: List<OompaLoompaModel>) : RecyclerView.Adapter<OompaLoompaAdapter.ViewHolder>(){
+class OompaLoompaListAdapter(private val listOompaLoompas: List<OompaLoompaModel>) : RecyclerView.Adapter<OompaLoompaListAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
