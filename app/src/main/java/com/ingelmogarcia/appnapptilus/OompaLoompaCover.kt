@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
-import com.ingelmogarcia.appnapptilus.model.OompaLoompaModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
 
 class OompaLoompaCover @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
