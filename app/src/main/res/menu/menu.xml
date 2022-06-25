@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/appBarSearchOption"
+        android:orderInCategory="10"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="@string/app_searchView"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+    <item
+        android:id="@+id/appBarFilterOption"
+        android:orderInCategory="100"
+        android:title="@string/app_searchView"
+        android:icon="@drawable/ic_baseline_filter_alt_24"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+</menu>

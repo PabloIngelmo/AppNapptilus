@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AppNapptilus</string>
+    <string name="app_searchView">Search</string>
+    <string name="ConnectionErrorMessage">Error de conexión. comprueba que tu dispositivo tiene conexión a internet.</string>
+    <string name="ServerErrorMessage">Ha ocurrido un ServerError con codigo: </string>
+    <string name="UnknownErrorMessage">Ha ocurrido un UnknownError: </string>
 </resources>
