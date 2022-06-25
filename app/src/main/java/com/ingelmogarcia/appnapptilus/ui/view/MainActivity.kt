@@ -1,32 +1,41 @@
 package com.ingelmogarcia.appnapptilus.ui.view
 
 import android.os.Bundle
+import android.text.InputType
+import android.view.Menu
+import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ingelmogarcia.appnapptilus.OompaLoompaListAdapter
+import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
 import com.ingelmogarcia.appnapptilus.databinding.ActivityMainBinding
 import com.ingelmogarcia.appnapptilus.ui.viewmodel.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel : MainViewModel by viewModels()
     val mutableList : MutableList<OompaLoompaModel> = mutableListOf()
+    private lateinit var searchView: SearchView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setTitle("Candidates")
         binding.buttonPreviousPage.text = "<"
         binding.buttonNextPage.text = ">"
 
         mainViewModel.onCreate()
-        val layoutManager = GridLayoutManager(this,5)
-        binding.oompaLoompaListRecycler.layoutManager = layoutManager
+        binding.oompaLoompaListRecycler.layoutManager = GridLayoutManager(this,5)
 
 
         mainViewModel.dataPageModel.observe(this, Observer {
@@ -51,4 +60,41 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        searchView = menu.findItem(R.id.appBarSearchOption).actionView as SearchView
+        searchView.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+        searchView.setOnQueryTextListener(this)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if(id == R.id.appBarFilterOption){
+            Toast.makeText(this, "Notificación corta", Toast.LENGTH_SHORT).show()
+        }
+
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        val a = mutableList.filter { it.title.toLowerCase().contains(query.toString().toLowerCase())}
+        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a)
+        dismissKeyboard()
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        val a = mutableList.filter { it.title.toLowerCase().contains(newText.toString().toLowerCase())}
+        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a)
+        return false
+    }
+
+    private fun dismissKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.viewRoot.windowToken, 0)
+    }
+
 }
