@@ -16,14 +16,15 @@ import com.ingelmogarcia.appnapptilus.databinding.FiltersDialogBinding
 
 
 class FiltersDialog(
-    private val onSubmitClickListener: (SpinnerOptionsSelected) -> Unit,
+    private val onSubmitClickListener: (SpinnerOptionsSelected) -> Unit
 ): DialogFragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding : FiltersDialogBinding
     var spinnerGenderItems = arrayOf("-","Male", "Female")
-    var spinnerProfessionItems = arrayOf("-","Developer", "Metalworker")
+    var spinnerProfessionItems = arrayOf("-","Developer", "Metalworker", "Gemcutter", "Medic", "Brewer")
     private var genderSpinerOption = "-"
     private var professionSpinerOption = "-"
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FiltersDialogBinding.inflate(LayoutInflater.from(context))
@@ -31,37 +32,47 @@ class FiltersDialog(
         builder.setView(binding.root)
 
         binding.buttonAddFilters.setOnClickListener {
-            onSubmitClickListener.invoke(SpinnerOptionsSelected(genderSpinerOption,professionSpinerOption))
+            onSubmitClickListener.invoke(SpinnerOptionsSelected(genderSpinerOption, professionSpinerOption))
             dismiss()
         }
 
-
-        if (binding.spinnerGender != null) {
-            val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item_style1, spinnerGenderItems)
-            binding.spinnerGender.adapter = adapter
-            binding.spinnerGender.tag = "spinnerGender"
-            binding.spinnerGender.onItemSelectedListener = this
-        }
-
-
-        if (binding.spinnerGender != null) {
-            val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item_style1, spinnerProfessionItems)
-            binding.spinnerProfession.adapter = adapter
-            binding.spinnerProfession.tag = "spinnerProfession"
-            binding.spinnerProfession.onItemSelectedListener = this
-        }
+        setSpinners()
 
         val dialog = builder.create()
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return dialog
     }
 
+    fun setSpinners(){
+        if (binding.spinnerGender != null) {
+            val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item_style1, spinnerGenderItems)
+            binding.spinnerGender.adapter = adapter
+            binding.spinnerGender.setSelection(SpinnerOptionsSelected.positionSp1)
+            binding.spinnerGender.tag = "spinnerGender"
+            binding.spinnerGender.onItemSelectedListener = this
+        }
+
+        if (binding.spinnerProfession != null) {
+            val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item_style1, spinnerProfessionItems)
+            binding.spinnerProfession.adapter = adapter
+            binding.spinnerProfession.setSelection(SpinnerOptionsSelected.positionSp2)
+            binding.spinnerProfession.tag = "spinnerProfession"
+            binding.spinnerProfession.onItemSelectedListener = this
+        }
+    }
+
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         if(p0!!.tag == binding.spinnerGender.tag){
-            genderSpinerOption = spinnerGenderItems.get(p2)
+            when(spinnerGenderItems.get(p2)){
+                "Male" -> genderSpinerOption = "M"
+                "Female" -> genderSpinerOption = "F"
+                "-" -> genderSpinerOption = "-"
+            }
+            SpinnerOptionsSelected.positionSp1 = p2
         }
         if(p0!!.tag == binding.spinnerProfession.tag){
             professionSpinerOption = spinnerProfessionItems.get(p2)
+            SpinnerOptionsSelected.positionSp2 = p2
         }
     }
 
@@ -71,7 +82,14 @@ class FiltersDialog(
 
 
 
+
+
 data class SpinnerOptionsSelected(
-    val optionSp1:String,
-    val optionSp2:String
-)
+    val optionSp1: String,
+    val optionSp2: String
+){
+    companion object{
+        var positionSp1: Int = 0
+        var positionSp2: Int = 0
+    }
+}

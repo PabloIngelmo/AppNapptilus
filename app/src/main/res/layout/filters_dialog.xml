@@ -45,7 +45,7 @@
                 android:layout_marginTop="30dp"
                 android:textSize="17dp"
                 android:textColor="@color/black"
-                android:text="Profession:"/>
+                android:text="Gender:"/>
 
             <Spinner
                 android:id="@+id/spinnerGender"
@@ -69,7 +69,7 @@
                 android:layout_marginTop="30dp"
                 android:textSize="17dp"
                 android:textColor="@color/black"
-                android:text="Gender:"/>
+                android:text="Profession:"/>
 
             <Spinner
                 android:id="@+id/spinnerProfession"
