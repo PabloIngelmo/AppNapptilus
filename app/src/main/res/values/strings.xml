@@ -4,4 +4,5 @@
     <string name="ConnectionErrorMessage">Error de conexión. comprueba que tu dispositivo tiene conexión a internet.</string>
     <string name="ServerErrorMessage">Ha ocurrido un ServerError con codigo: </string>
     <string name="UnknownErrorMessage">Ha ocurrido un UnknownError: </string>
+    <string name="filtersTitle">Filters</string>
 </resources>

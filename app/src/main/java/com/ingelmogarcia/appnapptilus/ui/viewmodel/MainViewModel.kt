@@ -40,6 +40,7 @@ class MainViewModel : ViewModel() {
     fun downloadData(num: Int) {
         numPage += num
         viewModelScope.launch {
+            _isLoading.postValue(true)
             var response = dataPageUseCase(numPage)
 
             response.fold({ error ->
@@ -48,9 +49,11 @@ class MainViewModel : ViewModel() {
                     is HandleError.ServerError -> Log.e(TAG_SERVER_ERROR,Resources.getSystem().getString(R.string.ServerErrorMessage))
                     is HandleError.UnknownError -> Log.e(TAG_UNKNOWN_ERROR, Resources.getSystem().getString(R.string.UnknownErrorMessage))
                  }
+                _isLoading.postValue(false)
             }
             ,{ datos -> /*DataPageProvider.dataPage = datos*/
                     _dataPageModel.postValue(datos)
+                    _isLoading.postValue(false)
             })
         }
     }
