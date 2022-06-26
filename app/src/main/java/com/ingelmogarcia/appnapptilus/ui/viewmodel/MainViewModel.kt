@@ -1,10 +1,13 @@
 package com.ingelmogarcia.appnapptilus.ui.viewmodel
 
+import android.content.res.Resources
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ingelmogarcia.appnapptilus.HandleError
+import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
 import com.ingelmogarcia.appnapptilus.data.model.DataPageProvider
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
@@ -13,6 +16,9 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
+    private val TAG_CONNECTION_ERROR = "ConnectionError"
+    private val TAG_SERVER_ERROR = "ServerError"
+    private val TAG_UNKNOWN_ERROR = "UnknownError"
     private var numPage = 0
 
     private val _dataPageModel = MutableLiveData<DataPageModel>()
@@ -34,17 +40,20 @@ class MainViewModel : ViewModel() {
     fun downloadData(num: Int) {
         numPage += num
         viewModelScope.launch {
+            _isLoading.postValue(true)
             var response = dataPageUseCase(numPage)
 
             response.fold({ error ->
                 when(error){
-                    is HandleError.ServerError -> error.code
-                    is HandleError.UnknownError -> error.message
-                    is HandleError.ConnectivityError -> "Error de conexión. comprueba que tu dispositivo tiene conexión a internet."
-                }
+                    is HandleError.ConnectionError -> Log.e(TAG_CONNECTION_ERROR, Resources.getSystem().getString(R.string.ConnectionErrorMessage))
+                    is HandleError.ServerError -> Log.e(TAG_SERVER_ERROR,Resources.getSystem().getString(R.string.ServerErrorMessage))
+                    is HandleError.UnknownError -> Log.e(TAG_UNKNOWN_ERROR, Resources.getSystem().getString(R.string.UnknownErrorMessage))
+                 }
+                _isLoading.postValue(false)
             }
             ,{ datos -> /*DataPageProvider.dataPage = datos*/
                     _dataPageModel.postValue(datos)
+                    _isLoading.postValue(false)
             })
         }
     }
