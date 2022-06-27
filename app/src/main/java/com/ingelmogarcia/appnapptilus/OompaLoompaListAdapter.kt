@@ -7,9 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaItemModel
 
-class OompaLoompaListAdapter(private val listOompaLoompas: List<OompaLoompaModel>) : RecyclerView.Adapter<OompaLoompaListAdapter.ViewHolder>(){
+class OompaLoompaListAdapter(
+    private val listOompaLoompas: List<OompaLoompaItemModel>,
+    private val listener: (OompaLoompaItemModel) -> Unit
+) : RecyclerView.Adapter<OompaLoompaListAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
@@ -21,6 +24,7 @@ class OompaLoompaListAdapter(private val listOompaLoompas: List<OompaLoompaModel
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listOompaLoompas[position])
+        holder.itemView.setOnClickListener { listener(listOompaLoompas[position]) }
     }
 
     override fun getItemCount(): Int = listOompaLoompas.size
@@ -30,7 +34,7 @@ class OompaLoompaListAdapter(private val listOompaLoompas: List<OompaLoompaModel
         private val image = view.findViewById<ImageView>(R.id.image)
         private val title = view.findViewById<TextView>(R.id.title)
 
-        fun bind(oompaLoompaModel: OompaLoompaModel) {
+        fun bind(oompaLoompaModel: OompaLoompaItemModel) {
             Glide
                 .with(image.context)
                 .load(oompaLoompaModel.urlImage)

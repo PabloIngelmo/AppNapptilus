@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.view.fragment.ViewPagerFragmentOne">
+
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="FRAGMENT 1"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:paddingStart="20dp"
+        android:paddingEnd="13dp"
+        android:textColor="@color/black"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        android:layout_marginHorizontal="10dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewGenderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:text="Gender:"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewGenderTitle"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                tools:text="Male"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/purple_700"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/textViewGender"
+                app:layout_constraintStart_toEndOf="@+id/textViewGender"
+                app:layout_constraintEnd_toStartOf="@+id/textViewHeightTitle"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewGender">
+                <TextView
+                    android:id="@+id/textViewAgeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age:"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/textViewAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="26"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/purple_700"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textViewHeightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewHeight"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="5dp"
+                android:text="Height:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textViewHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                tools:text="26"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/purple_700"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/textViewGender"
+                app:layout_constraintStart_toEndOf="@+id/textViewGender"
+                app:layout_constraintEnd_toStartOf="@+id/textViewHeightTitle"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewGender">
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewCountrytTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGenderTitle"
+                app:layout_constraintStart_toStartOf="@+id/textViewGenderTitle"
+                android:layout_marginTop="15dp"
+                android:text="Food:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textViewCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGenderTitle"
+                app:layout_constraintStart_toEndOf="@+id/textViewCountrytTitle"
+                android:layout_marginTop="15dp"
+                tools:text="GreChocolat"
+                android:layout_marginStart="2dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/purple_700"/>
+
+            <TextView
+                android:id="@+id/textViewProfessionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeightTitle"
+                app:layout_constraintEnd_toStartOf="@+id/textViewProfession"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="2dp"
+                android:text="Color:"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textViewProfession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeightTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                tools:text="Green"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/purple_700"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

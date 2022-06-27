@@ -9,8 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.ingelmogarcia.appnapptilus.HandleError
 import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
-import com.ingelmogarcia.appnapptilus.data.model.DataPageProvider
-import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaItemModel
 import com.ingelmogarcia.appnapptilus.domain.DataPageUseCase
 import kotlinx.coroutines.launch
 
@@ -24,9 +23,6 @@ class MainViewModel : ViewModel() {
     private val _dataPageModel = MutableLiveData<DataPageModel>()
     val dataPageModel: LiveData<DataPageModel> get() = _dataPageModel
 
-    private val _oompaLoompaModel = MutableLiveData<OompaLoompaModel>()
-    val oompaLoompaModel: LiveData<OompaLoompaModel> get() = _oompaLoompaModel
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading:LiveData<Boolean> get() = _isLoading
 
@@ -34,10 +30,10 @@ class MainViewModel : ViewModel() {
 
 
     fun onCreate(){
-        downloadData(1)
+        downloadDataPage(1)
     }
 
-    fun downloadData(num: Int) {
+    fun downloadDataPage(num: Int) {
         numPage += num
         viewModelScope.launch {
             _isLoading.postValue(true)
@@ -51,7 +47,7 @@ class MainViewModel : ViewModel() {
                  }
                 _isLoading.postValue(false)
             }
-            ,{ datos -> /*DataPageProvider.dataPage = datos*/
+            ,{ datos ->
                     _dataPageModel.postValue(datos)
                     _isLoading.postValue(false)
             })

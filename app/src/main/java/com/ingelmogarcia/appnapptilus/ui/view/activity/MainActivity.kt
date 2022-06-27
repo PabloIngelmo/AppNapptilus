@@ -1,31 +1,32 @@
-package com.ingelmogarcia.appnapptilus.ui.view
+package com.ingelmogarcia.appnapptilus.ui.view.activity
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ingelmogarcia.appnapptilus.OompaLoompaListAdapter
 import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
-import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaItemModel
 import com.ingelmogarcia.appnapptilus.databinding.ActivityMainBinding
 import com.ingelmogarcia.appnapptilus.ui.components.FiltersDialog
 import com.ingelmogarcia.appnapptilus.ui.viewmodel.MainViewModel
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
-    private val mainViewModel : MainViewModel by viewModels()
-    val mutableList : MutableList<OompaLoompaModel> = mutableListOf()
+    private val viewModel : MainViewModel by viewModels()
+    val oompaLoompaList : MutableList<OompaLoompaItemModel> = mutableListOf()
     private lateinit var dataPage: DataPageModel
     private lateinit var searchView: SearchView
     private lateinit var progressDialog: ProgressDialog
@@ -37,54 +38,49 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTitle("Candidates")
+        setTitle("Oompa Loompas")
+        setButtonText()
+
+        viewModel.onCreate()
+        binding.oompaLoompaListRecycler.layoutManager = GridLayoutManager(this,5)
+
+        viewModel.isLoading.observe(this, Observer(this::handleProgressDialog))
+        viewModel.dataPageModel.observe(this, Observer(this::updateUI))
+    }
+
+    fun setButtonText(){
         binding.buttonPreviousPage.text = "<"
         binding.buttonNextPage.text = ">"
         binding.buttonFirstPage.text = "<<"
         binding.buttonLastPage.text = ">>"
-
-        mainViewModel.onCreate()
-        binding.oompaLoompaListRecycler.layoutManager = GridLayoutManager(this,5)
-
-        mainViewModel.isLoading.observe(this, Observer {
-            if(it){
-                enabledProgressDialog()
-            }else{
-                disabledProgressDialog()
-            }
-        })
-
-        mainViewModel.dataPageModel.observe(this, Observer {dataPage ->
-            this.dataPage = dataPage
-            mutableList.clear()
-            for (i in dataPage.results){
-                mutableList.add(OompaLoompaModel(i.urlImage,i.first_name,i.gender, i.profession))
-            }
-            binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(mutableList)
-            binding.textviewNumPage.text = dataPage.current.toString() + "/" + dataPage.total
-
-            handleButtons()
-            setFilters()
-
-            binding.buttonLastPage.setOnClickListener {
-                mainViewModel.downloadData(dataPage.total - dataPage.current)
-            }
-
-            binding.buttonFirstPage.setOnClickListener {
-                mainViewModel.downloadData(1 - dataPage.current)
-            }
-        })
-
-        binding.buttonNextPage.setOnClickListener {
-            mainViewModel.downloadData(1)
-        }
-
-        binding.buttonPreviousPage.setOnClickListener {
-            mainViewModel.downloadData(-1)
-        }
-
-
     }
+
+    fun updateUI(dataPage: DataPageModel){
+        this.dataPage = dataPage
+        oompaLoompaList.clear()
+        for (i in dataPage.results){
+            oompaLoompaList.add(OompaLoompaItemModel(i.urlImage,i.first_name,i.gender, i.profession,i.id))
+        }
+        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(oompaLoompaList, ::onItemClicked)
+        binding.textviewNumPage.text = dataPage.current.toString() + "/" + dataPage.total
+
+        handleButtons()
+        setFilters()
+
+        binding.buttonLastPage.setOnClickListener(this)
+        binding.buttonFirstPage.setOnClickListener(this)
+        binding.buttonNextPage.setOnClickListener(this)
+        binding.buttonPreviousPage.setOnClickListener(this)
+    }
+
+    fun handleProgressDialog(boolean: Boolean){
+        if(boolean){
+            enabledProgressDialog()
+        }else{
+            disabledProgressDialog()
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -113,44 +109,44 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     fun setFilters(){
         if(!genderFilter.equals("-")) {
-            val a = mutableList.filter {
+            val a = oompaLoompaList.filter {
                 it.gender.toLowerCase().equals(genderFilter.toLowerCase())
             }
             if(!professionFilter.equals("-")) {
                 val b = a.filter {
                     it.profession.toLowerCase().equals(professionFilter.toLowerCase())
                 }
-                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(b)
+                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(b,::onItemClicked)
             }else{
-                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a)
+                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a,::onItemClicked)
             }
         }else if(!professionFilter.equals("-")) {
-            val a = mutableList.filter {
+            val a = oompaLoompaList.filter {
                 it.profession.toLowerCase().equals(professionFilter.toLowerCase())
             }
             if(!genderFilter.equals("-")) {
                 val b = a.filter {
                     it.gender.toLowerCase().equals(genderFilter.toLowerCase())
                 }
-                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(b)
+                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(b,::onItemClicked)
             }else{
-                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a)
+                binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a,::onItemClicked)
             }
         }else if(genderFilter.equals("-") && professionFilter.equals("-")) {
-            binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(mutableList)
+            binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(oompaLoompaList,::onItemClicked)
         }
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        val a = mutableList.filter { it.title.toLowerCase().contains(query.toString().toLowerCase())}
-        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a)
+        val a = oompaLoompaList.filter { it.title.toLowerCase().contains(query.toString().toLowerCase())}
+        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a,::onItemClicked)
         dismissKeyboard()
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        val a = mutableList.filter { it.title.toLowerCase().contains(newText.toString().toLowerCase())}
-        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a)
+        val a = oompaLoompaList.filter { it.title.toLowerCase().contains(newText.toString().toLowerCase())}
+        binding.oompaLoompaListRecycler.adapter = OompaLoompaListAdapter(a,::onItemClicked)
         return true
     }
 
@@ -193,5 +189,21 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         handleButtons()
     }
+
+    private fun onItemClicked(oompaLoompaItemModel: OompaLoompaItemModel){
+        var intent = Intent(this, OompaLoompaDetailActivity::class.java)
+        intent.putExtra("oompaLoompaId", oompaLoompaItemModel.id)
+        startActivity(intent)
+    }
+
+    override fun onClick(p0: View?) {
+        when(p0?.id){
+            R.id.buttonLastPage -> viewModel.downloadDataPage(dataPage.total - dataPage.current)
+            R.id.buttonFirstPage -> viewModel.downloadDataPage(1 - dataPage.current)
+            R.id.buttonNextPage -> viewModel.downloadDataPage(1)
+            R.id.buttonPreviousPage -> viewModel.downloadDataPage(-1)
+        }
+    }
+
 
 }

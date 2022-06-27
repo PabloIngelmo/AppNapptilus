@@ -6,6 +6,7 @@ import arrow.core.right
 import com.ingelmogarcia.appnapptilus.HandleError
 import com.ingelmogarcia.appnapptilus.core.ApiBook
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaDetailModel
 import com.ingelmogarcia.appnapptilus.toError
 
 class RemoteDataSource {
@@ -61,5 +62,17 @@ class RemoteDataSource {
                 return t.message
             }
         })*/
+    }
+
+
+
+    suspend fun getOompaLoompaDetail(oompaLoompaId: Int) : Either<HandleError, OompaLoompaDetailModel> {
+        val response: Either<HandleError, OompaLoompaDetailModel> = try {
+            ApiBook.service.getOompaLoompaDetail(oompaLoompaId).right()
+        } catch (e: Exception) {
+            e.toError().left()
+        }
+
+        return response
     }
 }

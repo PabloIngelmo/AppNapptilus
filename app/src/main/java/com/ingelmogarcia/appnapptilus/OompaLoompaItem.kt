@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
-import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaModel
+import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaItemModel
 
-class OompaLoompaCover @JvmOverloads constructor(
+class OompaLoompaItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
@@ -27,7 +27,7 @@ class OompaLoompaCover @JvmOverloads constructor(
         title = view.findViewById(R.id.title)
     }
 
-    fun setOompaLoompa(oompaLoompaModel: OompaLoompaModel){
+    fun setOompaLoompa(oompaLoompaModel: OompaLoompaItemModel){
         Glide
             .with(context)
             .load(oompaLoompaModel.urlImage)
