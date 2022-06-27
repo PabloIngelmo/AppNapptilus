@@ -14,8 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaDetailModel
 import com.ingelmogarcia.appnapptilus.databinding.ActivityOompaLoompaDetailBinding
-import com.ingelmogarcia.appnapptilus.ui.MyViewPagerAdapter
-import com.ingelmogarcia.appnapptilus.ui.view.fragment.ViewPagerFragmentOne
+import com.ingelmogarcia.appnapptilus.ui.adapter.MyViewPagerAdapter
 import com.ingelmogarcia.appnapptilus.ui.viewmodel.OompaLoompaDetailViewModel
 
 class OompaLoompaDetailActivity : AppCompatActivity() {
@@ -24,6 +23,7 @@ class OompaLoompaDetailActivity : AppCompatActivity() {
         var oompaLoompaDetail: OompaLoompaDetailModel? = null
     }
 
+    private val KEY_OOMPALOOMPAID = "oompaLoompaId"
     private lateinit var binding: ActivityOompaLoompaDetailBinding
     private val viewModel : OompaLoompaDetailViewModel by viewModels()
     private lateinit var progressDialog: ProgressDialog
@@ -43,7 +43,7 @@ class OompaLoompaDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val params = intent.extras
-        val oompaLoompaId = params?.getInt("oompaLoompaId",-1)
+        val oompaLoompaId = params?.getInt(KEY_OOMPALOOMPAID,-1)
 
         if (oompaLoompaId != null && oompaLoompaId != -1){
             viewModel.downloadOompaLoompaDetail(oompaLoompaId)
@@ -61,14 +61,27 @@ class OompaLoompaDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun setData(oompaLoompaDetail: OompaLoompaDetailModel){
+    fun setData(oompaLoompaDetail: OompaLoompaDetailModel) {
         OompaLoompaDetailActivity.oompaLoompaDetail = oompaLoompaDetail
 
-        binding.collapsingToolbar.title = oompaLoompaDetail.first_name + " " + oompaLoompaDetail.last_name
-        Glide
-            .with(binding.image.context)
-            .load(oompaLoompaDetail.image)
-            .into(binding.image)
+        val imageGender = if (oompaLoompaDetail.gender.equals("F")) {
+            R.drawable.img_male
+        } else {
+            R.drawable.img_female
+        }
+
+        with(binding) {
+            collapsingToolbar.title =
+                oompaLoompaDetail.first_name + " " + oompaLoompaDetail.last_name
+            Glide
+                .with(image.context)
+                .load(oompaLoompaDetail.image)
+                .into(image)
+            Glide
+                .with(genderImage.context)
+                .load(imageGender)
+                .into(genderImage)
+        }
 
         setUpViewPager()
     }
@@ -78,10 +91,11 @@ class OompaLoompaDetailActivity : AppCompatActivity() {
         binding.viewPager.adapter = MyViewPagerAdapter(this)
         TabLayoutMediator(binding.tabs, binding.viewPager){ tab, index ->
             tab.text = when(index){
-                0 -> { "One" }
-                1 -> { "Two" }
-                2 -> { "Three" }
-                else -> { throw Resources.NotFoundException("Position Not Found") }
+                0 -> { "Info" }
+                1 -> { "Song" }
+                2 -> { "Random String" }
+                3 -> { "Quota" }
+                else -> { throw Resources.NotFoundException(getString(R.string.notFoundException)) }
             }
         }.attach()
     }
@@ -102,10 +116,6 @@ class OompaLoompaDetailActivity : AppCompatActivity() {
         finish()
     }
 }
-
-
-
-
 
 
 

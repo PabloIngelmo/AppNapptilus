@@ -1,7 +1,7 @@
-package com.ingelmogarcia.appnapptilus.data
+package com.ingelmogarcia.appnapptilus.data.repository
 
 import arrow.core.Either
-import com.ingelmogarcia.appnapptilus.HandleError
+import com.ingelmogarcia.appnapptilus.utils.HandleError
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaDetailModel
 import com.ingelmogarcia.appnapptilus.data.network.RemoteDataSource

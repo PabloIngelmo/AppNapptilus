@@ -1,23 +1,23 @@
 package com.ingelmogarcia.appnapptilus.ui.view.fragment
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.ingelmogarcia.appnapptilus.R
-import com.ingelmogarcia.appnapptilus.databinding.FragmentViewPagerOneBinding
-import com.ingelmogarcia.appnapptilus.databinding.FragmentViewPagerTwoBinding
+import com.ingelmogarcia.appnapptilus.databinding.FragmentViewPagerFourBinding
+import com.ingelmogarcia.appnapptilus.databinding.FragmentViewPagerThreeBinding
 import com.ingelmogarcia.appnapptilus.ui.view.activity.OompaLoompaDetailActivity
 
 
-class ViewPagerFragmentTwo : Fragment() {
+class ViewPagerFragmentFour : Fragment() {
 
-    private lateinit var binding: FragmentViewPagerTwoBinding
+    private lateinit var binding: FragmentViewPagerFourBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentViewPagerTwoBinding.inflate(layoutInflater)
+        binding = FragmentViewPagerFourBinding.inflate(layoutInflater)
     }
 
     override fun onCreateView(
@@ -25,7 +25,7 @@ class ViewPagerFragmentTwo : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         if(OompaLoompaDetailActivity.oompaLoompaDetail != null){
-            binding.textViewSong.text = OompaLoompaDetailActivity.oompaLoompaDetail!!.favorite.song
+            binding.textViewQuota.text = OompaLoompaDetailActivity.oompaLoompaDetail!!.quota
         }
 
         return binding.root

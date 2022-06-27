@@ -18,7 +18,6 @@ class ViewPagerFragmentOne : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentViewPagerOneBinding.inflate(layoutInflater)
-
     }
 
     override fun onCreateView(
@@ -28,19 +27,19 @@ class ViewPagerFragmentOne : Fragment() {
     ): View? {
         val oompaLoompaDetail = OompaLoompaDetailActivity.oompaLoompaDetail
         if(oompaLoompaDetail != null){
-            binding.textViewDescription.text = oompaLoompaDetail.description
-            binding.textViewGender.text = oompaLoompaDetail.gender
-            binding.textViewAge.text = oompaLoompaDetail.age.toString()
-            binding.textViewHeight.text = oompaLoompaDetail.height.toString()
-            binding.textViewCountry.text = oompaLoompaDetail.favorite.food
-            binding.textViewProfession.text = oompaLoompaDetail.favorite.color
+            with(binding){
+                textViewDescription.text = oompaLoompaDetail.description
+                textViewCountry.text = oompaLoompaDetail.country
+                textViewAge.text = oompaLoompaDetail.age.toString()
+                textViewProfession.text = oompaLoompaDetail.profession
+                textViewHeight.text = oompaLoompaDetail.height.toString()
+                textViewFood.text = oompaLoompaDetail.favorite.food
+                textViewColor.text = oompaLoompaDetail.favorite.color
+                textViewEmail.text = oompaLoompaDetail.email
+            }
         }
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
 }

@@ -50,6 +50,14 @@
                 android:theme="@style/ToolBarStyle"
                 app:layout_collapseMode="pin" />
 
+            <ImageView
+                android:id="@+id/genderImage"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="50dp"/>
+
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

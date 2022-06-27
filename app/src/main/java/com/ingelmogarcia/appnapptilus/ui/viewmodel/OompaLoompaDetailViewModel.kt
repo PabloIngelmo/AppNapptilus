@@ -6,9 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ingelmogarcia.appnapptilus.HandleError
+import com.ingelmogarcia.appnapptilus.utils.HandleError
 import com.ingelmogarcia.appnapptilus.R
-import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaDetailModel
 import com.ingelmogarcia.appnapptilus.domain.OompaLoompaDetailUseCase
 import kotlinx.coroutines.launch

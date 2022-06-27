@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">AppNapptilus</string>
     <string name="app_searchView">Search</string>
-    <string name="ConnectionErrorMessage">Error de conexión. comprueba que tu dispositivo tiene conexión a internet.</string>
+    <string name="ConnectionErrorMessage">Error de conexión. Comprueba que tu dispositivo tiene conexión a internet.</string>
     <string name="ServerErrorMessage">Ha ocurrido un ServerError con codigo: </string>
     <string name="UnknownErrorMessage">Ha ocurrido un UnknownError: </string>
     <string name="filtersTitle">Filters</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="OompaLoompasTitle">Oompa Loompas</string>
+    <string name="notFoundException">"Position Not Found"</string>
 </resources>

@@ -1,8 +1,9 @@
-package com.ingelmogarcia.appnapptilus
+package com.ingelmogarcia.appnapptilus.utils
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
+import com.ingelmogarcia.appnapptilus.R
 
 class AspectRatioImageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

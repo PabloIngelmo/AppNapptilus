@@ -1,4 +1,4 @@
-package com.ingelmogarcia.appnapptilus
+package com.ingelmogarcia.appnapptilus.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaItemModel
 
 class OompaLoompaListAdapter(
@@ -17,7 +18,7 @@ class OompaLoompaListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.cover_oompa_loompa, parent, false)
+            .inflate(R.layout.item_oompa_loompa, parent, false)
 
         return ViewHolder(view)
     }
