@@ -67,6 +67,5 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
     //Either
     implementation "io.arrow-kt:arrow-core:1.0.1"
-    //TabLayout
 
 }
