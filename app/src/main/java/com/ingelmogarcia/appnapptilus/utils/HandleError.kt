@@ -1,4 +1,4 @@
-package com.ingelmogarcia.appnapptilus
+package com.ingelmogarcia.appnapptilus.utils
 
 import retrofit2.HttpException
 import java.io.IOException

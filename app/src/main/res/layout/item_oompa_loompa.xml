@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.view.MainActivity"
+    tools:context=".ui.view.activity.MainActivity"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <com.ingelmogarcia.appnapptilus.AspectRatioImageView
+    <com.ingelmogarcia.appnapptilus.utils.AspectRatioImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
