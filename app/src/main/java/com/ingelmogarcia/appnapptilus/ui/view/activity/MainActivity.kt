@@ -15,14 +15,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ingelmogarcia.appnapptilus.utils.HandleError
-import com.ingelmogarcia.appnapptilus.ui.adapter.OompaLoompaListAdapter
 import com.ingelmogarcia.appnapptilus.R
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
 import com.ingelmogarcia.appnapptilus.data.model.OompaLoompaItemModel
 import com.ingelmogarcia.appnapptilus.databinding.ActivityMainBinding
+import com.ingelmogarcia.appnapptilus.ui.adapter.OompaLoompaListAdapter
 import com.ingelmogarcia.appnapptilus.ui.components.FiltersDialog
 import com.ingelmogarcia.appnapptilus.ui.viewmodel.MainViewModel
+import com.ingelmogarcia.appnapptilus.utils.HandleError
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.OnClickListener {
 
@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, View.O
         viewModel.isLoading.observe(this, Observer(this::handleProgressDialog))
         viewModel.dataPageModel.observe(this, Observer(this::updateUI))
         viewModel.catchError.observe(this, Observer(this::handleError))
-
     }
 
     fun setButtonText(){

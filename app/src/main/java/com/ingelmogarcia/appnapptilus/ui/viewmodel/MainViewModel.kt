@@ -1,9 +1,12 @@
 package com.ingelmogarcia.appnapptilus.ui.viewmodel
 
-import androidx.lifecycle.*
-import com.ingelmogarcia.appnapptilus.utils.HandleError
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ingelmogarcia.appnapptilus.data.model.DataPageModel
 import com.ingelmogarcia.appnapptilus.domain.DataPageUseCase
+import com.ingelmogarcia.appnapptilus.utils.HandleError
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {

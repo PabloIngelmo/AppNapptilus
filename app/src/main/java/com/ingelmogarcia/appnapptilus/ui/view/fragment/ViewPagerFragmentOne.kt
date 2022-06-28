@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.ingelmogarcia.appnapptilus.R
-import com.ingelmogarcia.appnapptilus.databinding.ActivityMainBinding
 import com.ingelmogarcia.appnapptilus.databinding.FragmentViewPagerOneBinding
 import com.ingelmogarcia.appnapptilus.ui.view.activity.OompaLoompaDetailActivity
 
